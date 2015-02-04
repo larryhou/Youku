@@ -45,7 +45,7 @@ mkdir "${epi}"
 
 api="http://www.flvcd.com/parse.php?kw=$(php -r "echo urlencode('${web}');")&flag=one&format=super"
 curl -s ${api} | iconv -f gbk -t utf-8 | sed 's;</[^>]\{1,\}>;\
-;g'| grep '<a' | grep 'k.youku.com' | grep 'flv' | awk -F\" '{print $2}' | while read link
+;g'| grep '<a' | grep 'k.youku.com' | grep -i 'flv' | awk -F\" '{print $2}' | while read link
 do
 	name=$(echo ${link} | awk -F/ '{print $7}')
 	url=$(curl -s -I ${link} | grep Location | awk '{print $2}' | sed 's/[[:space:]]//g')
